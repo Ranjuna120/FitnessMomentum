@@ -33,11 +33,19 @@ providers.push(
   })
 )
 
+// Use JWT strategy because Credentials provider requires it.
+const devSecret = process.env.NEXTAUTH_SECRET || 'dev-secret-fallback-change-me'
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as any,
-  session: { strategy: 'database' },
+  session: { strategy: 'jwt' },
+  secret: devSecret,
   providers,
   callbacks: {
+    async jwt({ token, user }) {
+      if (user) token.sub = (user as any).id
+      return token
+    },
     async session({ session, token }: any) {
       if (token?.sub) (session.user as any).id = token.sub
       return session
