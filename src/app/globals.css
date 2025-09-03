@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 255 255 255;
+  --foreground: 17 24 39;
+  --muted: 107 114 128;
+  --border: 229 231 235;
+  --brand: 99 102 241;
+  --brand-accent: 79 70 229;
+  --radius: 0.625rem;
+}
+
+.dark {
+  --background: 17 24 39;
+  --foreground: 243 244 246;
+  --muted: 156 163 175;
+  --border: 55 65 81;
+}
+
+html, body { margin:0; }
+body {
+  background-color: rgb(var(--background));
+  color: rgb(var(--foreground));
+  /* Remove page scrolling globally; remove overflow properties if you need scroll again */
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* Utility class to disable scroll only when needed via JS: add class no-scroll to body */
+body.no-scroll { overflow: hidden; }
+
+.text-muted-foreground { color: rgb(var(--muted)); }
+.border { border-color: rgb(var(--border)); }
+
+/* Typography tweaks */
+h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.02em; }
+
+/* Utility containers */
+.container { width: 100%; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
+@media (min-width: 640px) { .container { max-width: 640px; }}
+@media (min-width: 768px) { .container { max-width: 768px; }}
+@media (min-width: 1024px) { .container { max-width: 1024px; }}
+@media (min-width: 1280px) { .container { max-width: 1280px; }}
+
+/* Card */
+.card { background: rgba(var(--background)); border:1px solid rgb(var(--border)); border-radius: var(--radius); padding:1.25rem; box-shadow: 0 2px 4px -2px rgba(0,0,0,.06), 0 4px 12px -2px rgba(0,0,0,.04); }
+.card-muted { background: linear-gradient(145deg, rgba(var(--background),1) 0%, rgba(var(--background),0.6) 100%); }
+
+/* Brand button gradient */
+.btn-brand { background: linear-gradient(90deg, rgb(var(--brand)) 0%, rgb(var(--brand-accent)) 100%); color:#fff; font-weight:500; border-radius: var(--radius); padding:0.625rem 1.25rem; display:inline-flex; align-items:center; gap:.5rem; box-shadow:0 4px 10px -2px rgba(var(--brand), .4); transition: all .25s; }
+.btn-brand:hover { filter:brightness(1.05); transform: translateY(-2px); }
+.btn-outline { border:1px solid rgb(var(--border)); border-radius: var(--radius); padding:0.625rem 1.25rem; font-weight:500; background:rgba(var(--background),0.6); backdrop-filter: blur(8px); transition: all .25s; }
+.btn-outline:hover { background:rgba(var(--background),0.85); }
+
+/* Animated gradient text */
+.gradient-text { background: linear-gradient(90deg, rgb(var(--brand)) 0%, rgb(var(--brand-accent)) 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+/* Subtle fade-in */
+@keyframes fadeInUp { from { opacity:0; transform:translateY(12px);} to { opacity:1; transform:translateY(0);} }
+.fade-in { animation: fadeInUp .6s ease forwards; }
+
+/* Scrollbar (webkit) */
+*::-webkit-scrollbar { width:10px; height:10px; }
+*::-webkit-scrollbar-track { background:rgba(var(--background),0.5); }
+*::-webkit-scrollbar-thumb { background:linear-gradient(180deg,rgb(var(--brand)),rgb(var(--brand-accent))); border-radius:20px; }
+
+/* Form inputs */
+input, select, textarea { border:1px solid rgb(var(--border)); border-radius: var(--radius); background:rgba(var(--background),0.9); padding:0.55rem 0.75rem; font-size:0.95rem; }
+input:focus, select:focus, textarea:focus { outline:2px solid rgba(var(--brand), .35); outline-offset:2px; }
+
+/* Dark adjustments */
+.dark .card { background:rgba(31,41,55,.85); }
+.dark .btn-outline { background:rgba(31,41,55,.6); }
+.dark input, .dark select, .dark textarea { background:rgba(31,41,55,.85); }
