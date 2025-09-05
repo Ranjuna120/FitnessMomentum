@@ -11,6 +11,16 @@ export default async function MetricsPage() {
   const metrics = await prisma.bodyMetric.findMany({ where: { userId: (user as any).id }, orderBy: { recordedAt: 'desc' }, take: 40 })
   const latest = metrics[0]
   const avgWeight = metrics.length ? (metrics.reduce((a: number, m: any) => a + (m.weightKg || 0), 0) / metrics.filter((m: any)=>m.weightKg).length).toFixed(1) : '--'
+
+  async function deleteMetric(formData: FormData) {
+    'use server'
+    const id = formData.get('metricId')?.toString()
+    if (!id) return
+    const auth = await getCurrentUser()
+    if (!auth) redirect('/auth/signin')
+    await prisma.bodyMetric.deleteMany({ where: { id, userId: (auth as any).id } })
+    redirect('/dashboard/metrics')
+  }
   return (
     <div className="relative min-h-screen">
       <div className="absolute inset-0 -z-30 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900" />
@@ -44,11 +54,12 @@ export default async function MetricsPage() {
                 <th className="text-left px-3 py-2 font-medium">Weight (kg)</th>
                 <th className="text-left px-3 py-2 font-medium">Body Fat %</th>
                 <th className="text-left px-3 py-2 font-medium">Waist (cm)</th>
+                <th className="px-3 py-2" />
               </tr>
             </thead>
             <tbody>
               {metrics.length === 0 && (
-                <tr><td colSpan={4} className="px-4 py-10 text-center text-indigo-100/60">No entries yet. Start tracking.</td></tr>
+                <tr><td colSpan={5} className="px-4 py-10 text-center text-indigo-100/60">No entries yet. Start tracking.</td></tr>
               )}
               {metrics.map((m: any, i: number) => (
                 <tr key={m.id} className={`border-t border-white/5 hover:bg-white/[0.06] transition ${i % 2 ? 'bg-white/[0.02]' : ''}`}>
@@ -56,6 +67,12 @@ export default async function MetricsPage() {
                   <td className="px-3 py-2">{m.weightKg ?? '-'}</td>
                   <td className="px-3 py-2">{m.bodyFatPct ?? '-'}</td>
                   <td className="px-3 py-2">{m.waistCm ?? '-'}</td>
+                  <td className="px-3 py-2 text-right">
+                    <form action={deleteMetric}>
+                      <input type="hidden" name="metricId" value={m.id} />
+                      <button type="submit" className="text-[10px] px-3 py-1 rounded-full bg-gradient-to-r from-rose-500 to-pink-600 hover:brightness-110 font-medium shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-200/60">Delete</button>
+                    </form>
+                  </td>
                 </tr>
               ))}
             </tbody>
