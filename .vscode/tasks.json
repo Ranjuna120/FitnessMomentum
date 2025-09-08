@@ -1,0 +1,31 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Dev: next dev with auto open",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$env:NODE_ENV='development'; $proc = Start-Process -FilePath 'cmd.exe' -ArgumentList '/c','npm run dev' -PassThru; Start-Sleep -Seconds 2; Start-Process 'http://localhost:3000'; Wait-Process -Id $proc.Id"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Dev: next dev with auto open",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$env:NODE_ENV='development'; $proc = Start-Process -FilePath 'cmd.exe' -ArgumentList '/c','\"npm run dev\"' -PassThru; Start-Sleep -Seconds 3; Start-Process 'http://localhost:3000'; Wait-Process -Id $proc.Id"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}
