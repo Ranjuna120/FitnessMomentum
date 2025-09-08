@@ -17,21 +17,61 @@ export function DailyIntakeCard({ targets }: { targets: MacroTargets }) {
   const [items, setItems] = useState<MealItem[]>([])
   const [showForm, setShowForm] = useState(false)
 
+  // Load today's meals from API
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem('fm_meals_today')
-      if (raw) setItems(JSON.parse(raw))
-    } catch { /* ignore */ }
+    let active = true
+    const load = async () => {
+      try {
+        const res = await fetch('/api/meals/today', { cache: 'no-store' })
+        if (!res.ok) throw new Error('failed')
+        const data = await res.json()
+        if (!active) return
+        const mapped: MealItem[] = (data.meals || []).map((m: any) => ({
+          id: m.id,
+          name: m.name,
+          calories: m.calories,
+          protein: m.protein,
+          carbs: m.carbs,
+          fats: m.fats,
+          time: new Date(m.consumedAt).toLocaleTimeString(),
+        }))
+        setItems(mapped)
+      } catch {
+        // ignore - keep empty
+      }
+    }
+    load()
+    return () => {
+      active = false
+    }
   }, [])
 
-  useEffect(() => {
-    localStorage.setItem('fm_meals_today', JSON.stringify(items))
-  }, [items])
-
-  const addItem = (data: Omit<MealItem, 'id' | 'time'>) => {
-    const item: MealItem = { ...data, id: crypto.randomUUID(), time: new Date().toLocaleTimeString() }
-    setItems(prev => [...prev, item])
+  const addItem = async (data: Omit<MealItem, 'id' | 'time'>) => {
+    // Optimistic append
     setShowForm(false)
+    try {
+      const res = await fetch('/api/meals', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...data }),
+      })
+      if (!res.ok) throw new Error('failed')
+      const { meal } = await res.json()
+      const item: MealItem = {
+        id: meal.id,
+        name: meal.name,
+        calories: meal.calories,
+        protein: meal.protein,
+        carbs: meal.carbs,
+        fats: meal.fats,
+        time: new Date(meal.consumedAt).toLocaleTimeString(),
+      }
+      setItems(prev => [...prev, item])
+    } catch {
+      // fallback to local add if API fails
+      const item: MealItem = { ...data, id: crypto.randomUUID(), time: new Date().toLocaleTimeString() }
+      setItems(prev => [...prev, item])
+    }
   }
 
   const totals = useMemo(() => items.reduce((acc, cur) => {
@@ -100,7 +140,16 @@ export function DailyIntakeCard({ targets }: { targets: MacroTargets }) {
                 <td className="p-2 text-white/90">{i.carbs}</td>
                 <td className="p-2 text-white/90">{i.fats}</td>
                 <td className="p-2 text-right">
-                  <button onClick={() => setItems(prev => prev.filter(x => x.id !== i.id))} className="text-[10px] px-2 py-1 rounded bg-white/10 hover:bg-white/20 text-white/80">Del</button>
+                  <button
+                    onClick={async () => {
+                      const id = i.id
+                      setItems(prev => prev.filter(x => x.id !== id))
+                      try {
+                        await fetch(`/api/meals/${id}`, { method: 'DELETE' })
+                      } catch {}
+                    }}
+                    className="text-[10px] px-2 py-1 rounded bg-white/10 hover:bg-white/20 text-white/80"
+                  >Del</button>
                 </td>
               </tr>
             ))}
