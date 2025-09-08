@@ -148,7 +148,8 @@ export function DailyIntakeCard({ targets }: { targets: MacroTargets }) {
                         await fetch(`/api/meals/${id}`, { method: 'DELETE' })
                       } catch {}
                     }}
-                    className="text-[10px] px-2 py-1 rounded bg-white/10 hover:bg-white/20 text-white/80"
+                    aria-label="Delete meal"
+                    className="text-[10px] px-2 py-1 rounded border border-rose-400/30 bg-rose-500/15 text-rose-200 hover:bg-rose-500/25 hover:border-rose-400/50 focus:outline-none focus:ring-2 focus:ring-rose-400/50 transition"
                   >Del</button>
                 </td>
               </tr>
