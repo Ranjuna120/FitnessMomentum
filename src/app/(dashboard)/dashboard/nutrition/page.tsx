@@ -2,6 +2,9 @@ import React from 'react'
 import Link from 'next/link'
 import { MacroTargetsCard } from '../../../../components/nutrition/MacroTargetsCard'
 import { DailyIntakeCard } from '../../../../components/nutrition/DailyIntakeCard'
+import NextDynamic from 'next/dynamic'
+
+const BmrPlannerCard = NextDynamic(() => import('../../../../components/nutrition/BmrPlannerCard'), { ssr: false })
 
 export const dynamic = 'force-dynamic'
 
@@ -35,6 +38,9 @@ export default function NutritionPage() {
         <section className="grid gap-8 lg:grid-cols-2">
           <MacroTargetsCard />
           <DailyIntakeCard targets={{ calories: 2000, protein: 130, carbs: 220, fats: 70 }} />
+        </section>
+        <section>
+          <BmrPlannerCard />
         </section>
         <section className="space-y-4">
           <h2 className="text-lg font-semibold text-indigo-50">Roadmap</h2>
