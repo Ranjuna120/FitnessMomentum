@@ -30,15 +30,26 @@ export function MacroTargetsCard() {
     setEditing(false)
   }
 
+  const reset = () => {
+    setTargets(DEFAULT_TARGETS)
+    try { localStorage.setItem('fm_macro_targets', JSON.stringify(DEFAULT_TARGETS)) } catch {}
+  }
+
   const inputClasses = "rounded-lg bg-slate-950/60 border border-white/15 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-400/70";
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/65 backdrop-blur-xl p-5 flex flex-col gap-4 shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_8px_40px_-12px_rgba(0,0,0,0.55)]">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_15%,rgba(255,255,255,0.08),transparent_70%)]" />
       <div className="flex items-center justify-between">
-        <h3 className="text-base font-semibold tracking-wide text-white">Macro Targets</h3>
+        <div>
+          <h3 className="text-base font-semibold tracking-wide text-white">Macro Targets</h3>
+          <p className="text-[11px] text-indigo-200/70 mt-0.5">Set your daily goals. These power progress bars and suggestions.</p>
+        </div>
         {!editing && (
-          <button onClick={() => setEditing(true)} className="text-[11px] px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white transition">Edit</button>
+          <div className="flex items-center gap-2">
+            <button onClick={reset} className="text-[11px] px-3 py-1 rounded-full bg-white/5 hover:bg-white/15 text-white/80 transition">Reset</button>
+            <button onClick={() => setEditing(true)} className="text-[11px] px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white transition">Edit</button>
+          </div>
         )}
       </div>
       {!editing && (
@@ -50,8 +61,11 @@ export function MacroTargetsCard() {
             ['Fats', targets.fats, 'g']
           ] as const).map(([label, value, unit]) => (
             <div key={label} className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-              <p className="text-[10px] uppercase tracking-wide text-indigo-200/60">{label}</p>
-              <p className="text-lg font-semibold text-white">{value}<span className="text-xs font-normal text-white/60 ml-1">{unit}</span></p>
+              <p className="text-[10px] uppercase tracking-wide text-indigo-200/70">{label}</p>
+              <p className="text-lg font-semibold text-white">
+                {value}
+                <span className="text-xs font-normal text-white/60 ml-1">{unit}</span>
+              </p>
             </div>
           ))}
         </div>
