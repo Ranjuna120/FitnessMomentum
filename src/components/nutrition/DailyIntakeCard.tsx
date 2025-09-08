@@ -68,9 +68,12 @@ export function DailyIntakeCard({ targets }: { targets: MacroTargets }) {
         <Bar value={totals.carbs} target={targets.carbs} label="Carbs" color="bg-fuchsia-500" />
         <Bar value={totals.fats} target={targets.fats} label="Fats" color="bg-emerald-500" />
       </div>
-      {showForm && (
-        <MealForm onAdd={addItem} />
-      )}
+      <div
+        aria-expanded={showForm}
+        className={`transition-[max-height,opacity] duration-300 ease-out ${showForm ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}
+      >
+        {showForm && <MealForm onAdd={addItem} />}
+      </div>
       <div className="max-h-56 overflow-auto rounded-lg border border-white/10 bg-white/5">
         <table className="w-full text-xs">
           <thead className="bg-white/10 text-[10px] uppercase tracking-wide text-indigo-200/80">
@@ -111,42 +114,42 @@ export function DailyIntakeCard({ targets }: { targets: MacroTargets }) {
 
 function MealForm({ onAdd }: { onAdd: (d: { name: string; calories: number; protein: number; carbs: number; fats: number }) => void }) {
   const [form, setForm] = useState({ name: '', calories: '', protein: '', carbs: '', fats: '' })
-  const input = "rounded-lg bg-slate-950/60 border border-white/15 px-3 py-1.5 text-xs text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-400/70";
+  const input = "w-full rounded-lg bg-white/10 border border-white/15 px-3 py-2 text-xs text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-fuchsia-400/70";
   const submit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.name) return
     onAdd({
       name: form.name,
-      calories: parseInt(form.calories || '0', 10),
-      protein: parseInt(form.protein || '0', 10),
-      carbs: parseInt(form.carbs || '0', 10),
-      fats: parseInt(form.fats || '0', 10)
+      calories: parseFloat(form.calories || '0'),
+      protein: parseFloat(form.protein || '0'),
+      carbs: parseFloat(form.carbs || '0'),
+      fats: parseFloat(form.fats || '0')
     })
     setForm({ name: '', calories: '', protein: '', carbs: '', fats: '' })
   }
   return (
-    <form onSubmit={submit} className="grid grid-cols-2 md:grid-cols-[2fr_repeat(5,1fr)_auto] gap-2 bg-white/5 p-3 rounded-lg border border-white/10 text-[11px] items-end">
-      <label className="flex flex-col gap-1 uppercase tracking-wide text-indigo-200/70">
+    <form onSubmit={submit} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[2fr_repeat(5,1fr)_auto] gap-2 bg-white/5 p-3 rounded-lg border border-white/10 text-[11px] items-end">
+      <label className="flex flex-col gap-1 uppercase tracking-wide text-indigo-100">
         <span>Food</span>
-        <input className={input} value={form.name} onChange={e=>setForm(f=>({...f,name:e.target.value}))} required />
+        <input placeholder="e.g. Oats & milk" className={input} value={form.name} onChange={e=>setForm(f=>({...f,name:e.target.value}))} required />
       </label>
-      <label className="flex flex-col gap-1 uppercase tracking-wide text-indigo-200/70">
+      <label className="flex flex-col gap-1 uppercase tracking-wide text-indigo-100">
         <span>Cal</span>
-        <input type="number" className={input} value={form.calories} onChange={e=>setForm(f=>({...f,calories:e.target.value}))} />
+        <input type="number" step="1" placeholder="kcal" className={input} value={form.calories} onChange={e=>setForm(f=>({...f,calories:e.target.value}))} />
       </label>
-      <label className="flex flex-col gap-1 uppercase tracking-wide text-indigo-200/70">
+      <label className="flex flex-col gap-1 uppercase tracking-wide text-indigo-100">
         <span>P</span>
-        <input type="number" className={input} value={form.protein} onChange={e=>setForm(f=>({...f,protein:e.target.value}))} />
+        <input type="number" step="0.1" placeholder="g" className={input} value={form.protein} onChange={e=>setForm(f=>({...f,protein:e.target.value}))} />
       </label>
-      <label className="flex flex-col gap-1 uppercase tracking-wide text-indigo-200/70">
+      <label className="flex flex-col gap-1 uppercase tracking-wide text-indigo-100">
         <span>C</span>
-        <input type="number" className={input} value={form.carbs} onChange={e=>setForm(f=>({...f,carbs:e.target.value}))} />
+        <input type="number" step="0.1" placeholder="g" className={input} value={form.carbs} onChange={e=>setForm(f=>({...f,carbs:e.target.value}))} />
       </label>
-      <label className="flex flex-col gap-1 uppercase tracking-wide text-indigo-200/70">
+      <label className="flex flex-col gap-1 uppercase tracking-wide text-indigo-100">
         <span>F</span>
-        <input type="number" className={input} value={form.fats} onChange={e=>setForm(f=>({...f,fats:e.target.value}))} />
+        <input type="number" step="0.1" placeholder="g" className={input} value={form.fats} onChange={e=>setForm(f=>({...f,fats:e.target.value}))} />
       </label>
-      <button type="submit" className="h-9 md:h-[42px] rounded-lg px-4 md:px-6 text-xs font-medium text-white bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-emerald-500 hover:brightness-110 transition col-span-2 md:col-span-1">Add</button>
+      <button type="submit" className="h-10 md:h-[42px] rounded-lg px-4 md:px-6 text-xs font-medium text-white bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-emerald-500 hover:brightness-110 transition sm:col-span-2 md:col-span-1">Add</button>
     </form>
   )
 }
