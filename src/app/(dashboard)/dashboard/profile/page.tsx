@@ -4,6 +4,9 @@ import nextDynamic from 'next/dynamic'
 
 const ProfilePreferencesCard = nextDynamic(() => import('../../../../components/profile/ProfilePreferencesCard'), { ssr: false })
 const AccountCard = nextDynamic(() => import('../../../../components/profile/AccountCard'), { ssr: false })
+const NotificationPreferencesCard = nextDynamic(() => import('../../../../components/profile/NotificationPreferencesCard'), { ssr: false })
+const AppearancePreferencesCard = nextDynamic(() => import('../../../../components/profile/AppearancePreferencesCard'), { ssr: false })
+const DataPrivacyCard = nextDynamic(() => import('../../../../components/profile/DataPrivacyCard'), { ssr: false })
 
 export const dynamic = 'force-dynamic'
 
@@ -18,20 +21,29 @@ export default async function ProfilePage() {
       <div className="absolute inset-0 -z-10 backdrop-blur-[2px]" />
       <div className="relative px-6 pt-10 pb-14 overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_30%_40%,rgba(255,255,255,.08),transparent_70%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,.06),transparent_70%)]" />
-        <div className="space-y-6 max-w-3xl">
+  <div className="space-y-6 max-w-3xl mx-auto">
           <div className="space-y-2">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-fuchsia-300 to-emerald-300 drop-shadow">Profile</h1>
             <p className="text-sm text-indigo-100/80">Manage account details & preferences.</p>
           </div>
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
             {/* Account Card */}
             <AccountCard email={user.email} name={user.name ?? ''} provider={user?.image ? 'OAuth' : 'Credentials'} />
 
             {/* Preferences Card */}
             <ProfilePreferencesCard />
 
+            {/* Notifications */}
+            <NotificationPreferencesCard />
+
+            {/* Appearance */}
+            <AppearancePreferencesCard />
+
             {/* Security Card */}
             <SecurityCard />
+
+            {/* Data & Privacy */}
+            <DataPrivacyCard />
           </div>
         </div>
       </div>
