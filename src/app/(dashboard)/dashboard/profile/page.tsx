@@ -1,5 +1,9 @@
 import { getCurrentUser } from '../../../../lib/auth'
 import { redirect } from 'next/navigation'
+import nextDynamic from 'next/dynamic'
+
+const ProfilePreferencesCard = nextDynamic(() => import('../../../../components/profile/ProfilePreferencesCard'), { ssr: false })
+const AccountCard = nextDynamic(() => import('../../../../components/profile/AccountCard'), { ssr: false })
 
 export const dynamic = 'force-dynamic'
 
@@ -20,32 +24,31 @@ export default async function ProfilePage() {
             <p className="text-sm text-indigo-100/80">Manage account details & preferences.</p>
           </div>
           <div className="grid gap-6 md:grid-cols-2">
-            <div className="relative overflow-hidden rounded-xl p-5 border border-white/10 bg-white/5 backdrop-blur-md">
-              <h2 className="text-sm font-semibold text-indigo-50 mb-3">Account</h2>
-              <ul className="space-y-2 text-[13px] text-indigo-100/80">
-                <li><span className="text-indigo-100/60">Name:</span> {user.name ?? '—'}</li>
-                <li><span className="text-indigo-100/60">Email:</span> {user.email}</li>
-                <li><span className="text-indigo-100/60">Provider:</span> {user?.image ? 'OAuth' : 'Credentials'}</li>
-              </ul>
-              <div className="absolute right-2 top-2 w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500/30 to-fuchsia-600/30 blur-2xl" />
-            </div>
-            <div className="relative overflow-hidden rounded-xl p-5 border border-white/10 bg-white/5 backdrop-blur-md">
-              <h2 className="text-sm font-semibold text-indigo-50 mb-3">Preferences</h2>
-              <p className="text-xs text-indigo-100/70">Customization options coming soon (units, theme accents, goals).</p>
-              <div className="absolute right-2 top-2 w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500/30 to-teal-600/30 blur-2xl" />
-            </div>
-            <div className="relative overflow-hidden rounded-xl p-5 border border-white/10 bg-white/5 backdrop-blur-md md:col-span-2">
-              <h2 className="text-sm font-semibold text-indigo-50 mb-3">Security</h2>
-              <p className="text-xs text-indigo-100/70 mb-3">Password reset & multi-factor auth features will appear here.</p>
-              <div className="flex flex-wrap gap-3 text-[11px]">
-                <button className="relative inline-flex items-center px-4 py-2 rounded-full font-medium text-white bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-emerald-500 bg-[length:220%_220%] animate-[pulseGradient_8s_ease_infinite] hover:scale-[1.03] transition">Reset Password</button>
-                <button className="rounded-full px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur text-indigo-50 font-medium">Enable MFA</button>
-              </div>
-              <div className="absolute right-4 bottom-2 w-20 h-20 rounded-full bg-gradient-to-br from-rose-500/30 to-pink-600/30 blur-2xl" />
-            </div>
+            {/* Account Card */}
+            <AccountCard email={user.email} name={user.name ?? ''} provider={user?.image ? 'OAuth' : 'Credentials'} />
+
+            {/* Preferences Card */}
+            <ProfilePreferencesCard />
+
+            {/* Security Card */}
+            <SecurityCard />
           </div>
         </div>
       </div>
+    </div>
+  )
+}
+
+function SecurityCard() {
+  return (
+    <div className="relative overflow-hidden rounded-xl p-5 border border-white/10 bg-white/5 backdrop-blur-md md:col-span-2">
+      <h2 className="text-sm font-semibold text-indigo-50 mb-3">Security</h2>
+      <p className="text-xs text-indigo-100/70 mb-3">Password reset & multi-factor auth features will appear here.</p>
+      <div className="flex flex-wrap gap-3 text-[11px]">
+        <button className="relative inline-flex items-center px-4 py-2 rounded-full font-medium text-white bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-emerald-500 bg-[length:220%_220%] animate-[pulseGradient_8s_ease_infinite] hover:scale-[1.03] transition">Reset Password</button>
+        <button className="rounded-full px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur text-indigo-50 font-medium">Enable MFA</button>
+      </div>
+      <div className="absolute right-4 bottom-2 w-20 h-20 rounded-full bg-gradient-to-br from-rose-500/30 to-pink-600/30 blur-2xl" />
     </div>
   )
 }
