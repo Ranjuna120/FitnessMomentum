@@ -108,7 +108,7 @@ export default function BmrPlannerCard() {
         <h3 className="text-base font-semibold tracking-wide">BMR Planner</h3>
       </div>
 
-      <form className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-end">
+  <form className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-end">
         <label className="flex flex-col gap-1 text-[11px] uppercase tracking-wide text-indigo-100">
           <span>Sex</span>
           <select className={input} value={sex} onChange={(e) => setSex(e.target.value as Sex)}>
@@ -144,14 +144,21 @@ export default function BmrPlannerCard() {
             <option value="muscle_gain">Muscle gain</option>
           </select>
         </label>
-        <label className="flex flex-col gap-1 text-[11px] uppercase tracking-wide text-indigo-100">
-          <span>Protein (g/kg)</span>
-          <input className={input} type="number" step="0.1" min={1.4} max={2.2} value={proteinPerKg} onChange={(e) => setProteinPerKg(e.target.value)} />
-        </label>
-        <label className="flex flex-col gap-1 text-[11px] uppercase tracking-wide text-indigo-100">
-          <span>Fat (% calories)</span>
-          <input className={input} type="number" step="0.01" min={0.2} max={0.3} value={fatPercent} onChange={(e) => setFatPercent(e.target.value)} />
-        </label>
+        <div className="sm:col-span-2 lg:col-span-3">
+          <details className="rounded-lg border border-white/10 bg-white/5 p-3">
+            <summary className="text-[11px] uppercase tracking-wide text-indigo-100 cursor-pointer select-none">Advanced (protein & fat tuning)</summary>
+            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label className="flex flex-col gap-1 text-[11px] uppercase tracking-wide text-indigo-100">
+                <span>Protein (g/kg)</span>
+                <input className={input} type="number" step="0.1" min={1.4} max={2.2} value={proteinPerKg} onChange={(e) => setProteinPerKg(e.target.value)} />
+              </label>
+              <label className="flex flex-col gap-1 text-[11px] uppercase tracking-wide text-indigo-100">
+                <span>Fat (% calories)</span>
+                <input className={input} type="number" step="0.01" min={0.2} max={0.3} value={fatPercent} onChange={(e) => setFatPercent(e.target.value)} />
+              </label>
+            </div>
+          </details>
+        </div>
       </form>
 
       <div className="grid gap-3 sm:grid-cols-3">
