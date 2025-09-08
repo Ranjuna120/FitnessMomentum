@@ -29,6 +29,7 @@ model User {
   workoutTemplates WorkoutTemplate[]
   bodyMetrics     BodyMetric[]
   personalRecords PersonalRecord[]
+  meals           Meal[]
 }
 
 model Account {
@@ -176,4 +177,20 @@ model PersonalRecord {
   exercise    Exercise  @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
 
   @@unique([userId, exerciseId, unit])
+}
+
+model Meal {
+  id         String   @id @default(cuid())
+  userId     String   @map("user_id")
+  name       String
+  calories   Int
+  protein    Float
+  carbs      Float
+  fats       Float
+  consumedAt DateTime @default(now()) @map("consumed_at")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, consumedAt])
 }
