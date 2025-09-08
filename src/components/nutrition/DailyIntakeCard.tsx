@@ -108,6 +108,12 @@ export function DailyIntakeCard({ targets }: { targets: MacroTargets }) {
         <Bar value={totals.carbs} target={targets.carbs} label="Carbs" color="bg-fuchsia-500" />
         <Bar value={totals.fats} target={targets.fats} label="Fats" color="bg-emerald-500" />
       </div>
+      <div className="flex flex-wrap gap-2 text-[11px] text-indigo-100/85">
+        <span className="rounded-full bg-white/10 px-3 py-1">Remaining: <strong>{Math.max(0, targets.calories - totals.calories)}</strong> kcal</span>
+        <span className="rounded-full bg-white/10 px-3 py-1">P: <strong>{Math.max(0, targets.protein - totals.protein)}</strong> g</span>
+        <span className="rounded-full bg-white/10 px-3 py-1">C: <strong>{Math.max(0, targets.carbs - totals.carbs)}</strong> g</span>
+        <span className="rounded-full bg-white/10 px-3 py-1">F: <strong>{Math.max(0, targets.fats - totals.fats)}</strong> g</span>
+      </div>
       <div
         aria-expanded={showForm}
         className={`transition-[max-height,opacity] duration-300 ease-out ${showForm ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}
