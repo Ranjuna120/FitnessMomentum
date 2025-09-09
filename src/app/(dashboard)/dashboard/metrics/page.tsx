@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { getCurrentUser } from '../../../../lib/auth'
 import { prisma } from '../../../../lib/prisma'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export const dynamic = 'force-dynamic'
 
@@ -22,9 +23,20 @@ export default async function MetricsPage() {
     redirect('/dashboard/metrics')
   }
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen overflow-hidden">
       <div className="absolute inset-0 -z-30 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900" />
       <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_15%_20%,rgba(99,102,241,.55),transparent_60%),radial-gradient(circle_at_80%_25%,rgba(236,72,153,.45),transparent_60%),radial-gradient(circle_at_35%_80%,rgba(16,185,129,.40),transparent_65%)]" />
+      {/* Global full-page background image for Body Metrics */}
+      <div className="absolute inset-0 z-[-15]">
+        <Image
+          src="/images/BodyMetrics.jpg"
+          alt="Body Metrics background"
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover object-center opacity-55"
+        />
+      </div>
       <div className="absolute inset-0 -z-10 backdrop-blur-[2px]" />
       <div className="relative px-6 pt-10 pb-10 md:pb-14 overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_30%_40%,rgba(255,255,255,.08),transparent_70%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,.06),transparent_70%)]" />
