@@ -36,7 +36,7 @@ export default function LandingPage() {
           <p className="text-lg md:text-xl text-indigo-100/80 leading-relaxed max-w-3xl mx-auto lg:mx-0">
             Log workouts fast, visualize performance trends, and stay consistent. Your training data becomes an evolving story you can act on.
           </p>
-          <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 pt-2">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <Link href="/auth/signup" className="relative text-sm shadow-lg inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-emerald-500 bg-[length:300%_300%] animate-[pulseGradient_6s_ease_infinite] hover:scale-[1.04] transition">
               Get Started
             </Link>
