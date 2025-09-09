@@ -33,7 +33,7 @@ export default function LandingPage() {
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight bg-clip-text text-transparent bg-[linear-gradient(90deg,#a5b4fc_0%,#f5a2ff_40%,#6ee7b7_80%)] bg-[length:200%_200%] animate-[pulseGradient_10s_ease_infinite] drop-shadow">
             Build strength & track progress with clarity & momentum
           </h1>
-          <p className="text-lg md:text-xl text-indigo-100/80 leading-relaxed max-w-3xl mx-auto lg:mx-0">
+          <p className="text-lg md:text-xl text-indigo-100/80 leading-relaxed max-w-3xl mx-auto">
             Log workouts fast, visualize performance trends, and stay consistent. Your training data becomes an evolving story you can act on.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
