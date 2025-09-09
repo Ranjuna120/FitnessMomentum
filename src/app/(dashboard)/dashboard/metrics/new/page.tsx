@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { getCurrentUser } from '../../../../../lib/auth'
 import { prisma } from '../../../../../lib/prisma'
+import Image from 'next/image'
 
 export const dynamic = 'force-dynamic'
 
@@ -27,12 +28,16 @@ export default async function NewMetricPage() {
     redirect('/dashboard/metrics')
   }
   return (
-    <div className="relative w-full min-h-[calc(100vh-0px)]">
+    <div className="relative w-full min-h-[calc(100vh-0px)] overflow-hidden">
       {/* Full-page gradient background layer */}
       <div className="fixed inset-0 -z-40 bg-slate-950" />
       <div className="fixed inset-0 -z-30 bg-[radial-gradient(circle_at_20%_25%,rgba(99,102,241,0.35),transparent_60%),radial-gradient(circle_at_80%_30%,rgba(236,72,153,0.35),transparent_60%),radial-gradient(circle_at_50%_90%,rgba(16,185,129,0.35),transparent_65%)]" />
+      {/* BodyMetrics1 background image layer */}
+      <div className="fixed inset-0 z-[-15]">
+        <Image src="/images/loading.jpg" alt="Body Metrics background" fill sizes="100vw" priority className="object-cover object-center opacity-55" />
+      </div>
       <div className="fixed inset-0 -z-20 opacity-30 mix-blend-overlay bg-[linear-gradient(120deg,rgba(255,255,255,0.08)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.08)_50%,rgba(255,255,255,0.08)_75%,transparent_75%,transparent)] bg-[length:36px_36px]" />
-      <div className="fixed inset-0 -z-10 pointer-events-none backdrop-blur-[2px]" />
+      <div className="fixed inset-0 z-[-5] pointer-events-none backdrop-blur-[2px]" />
       {/* Background gradient panel */}
       {/* <div className="pointer-events-none absolute inset-x-0 top-0 -z-20">
         <div className="mx-auto max-w-7xl h-full min-h-[560px] rounded-3xl bg-[radial-gradient(circle_at_20%_25%,rgba(99,102,241,0.25),transparent_60%),radial-gradient(circle_at_80%_30%,rgba(236,72,153,0.25),transparent_60%),radial-gradient(circle_at_50%_90%,rgba(16,185,129,0.25),transparent_65%)] bg-slate-900/40 backdrop-blur-sm border border-white/5 shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_40px_80px_-30px_rgba(0,0,0,0.6)]" />
