@@ -4,25 +4,26 @@ import Image from 'next/image'
 export default function LandingPage() {
   return (
     <main className="relative min-h-screen overflow-hidden">
-      {/* Layered vibrant background */}
-      <div className="absolute inset-0 -z-40 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900" />
+    {/* Global full-page background image (above base gradient, below overlays) */}
+    <div className="absolute inset-0 -z-30">
+        <Image
+          src="/images/loading.jpg"
+          alt="Site background"
+          fill
+          sizes="100vw"
+          priority
+      className="object-cover object-center opacity-30 mix-blend-overlay"
+        />
+      </div>
+    {/* Layered vibrant background */}
+    <div className="absolute inset-0 -z-40 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900" />
       <div className="absolute inset-0 -z-30 bg-[radial-gradient(circle_at_15%_18%,rgba(99,102,241,.55),transparent_60%),radial-gradient(circle_at_85%_25%,rgba(236,72,153,.55),transparent_60%),radial-gradient(circle_at_45%_85%,rgba(16,185,129,.50),transparent_60%)]" />
       <div className="absolute inset-0 -z-20 backdrop-blur-[2px]" />
       <div className="absolute inset-0 -z-10 opacity-30 mix-blend-overlay bg-[linear-gradient(120deg,rgba(255,255,255,.08)_25%,transparent_25%,transparent_50%,rgba(255,255,255,.08)_50%,rgba(255,255,255,.08)_75%,transparent_75%,transparent)] bg-[length:32px_32px]" />
 
   <section className="container pt-14 md:pt-16 pb-28 flex flex-col items-center text-center gap-14 fade-in relative">
         {/* Hero */}
-        {/* Background image layer */}
-        <div className="absolute inset-0 -z-10">
-          <Image
-            src="/images/loading.jpg"
-            alt="Gym background"
-            fill
-            sizes="100vw"
-            priority
-            className="object-cover opacity-25 mix-blend-overlay"
-          />
-        </div>
+  {/* Background image now applied globally above; removed hero-specific layer */}
         <div className="relative w-full max-w-6xl grid grid-cols-1 gap-10 items-center">
           {/* Left: Text */}
           <div className="space-y-8">
