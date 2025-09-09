@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function LandingPage() {
   return (
@@ -11,7 +12,20 @@ export default function LandingPage() {
 
   <section className="container pt-14 md:pt-16 pb-28 flex flex-col items-center text-center gap-14 fade-in relative">
         {/* Hero */}
-        <div className="space-y-8 max-w-4xl relative">
+        {/* Background image layer */}
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src="/images/loading.jpg"
+            alt="Gym background"
+            fill
+            sizes="100vw"
+            priority
+            className="object-cover opacity-25 mix-blend-overlay"
+          />
+        </div>
+        <div className="relative w-full max-w-6xl grid grid-cols-1 gap-10 items-center">
+          {/* Left: Text */}
+          <div className="space-y-8">
           <span className="inline-flex items-center gap-2 text-[11px] font-medium px-4 py-1.5 rounded-full border border-white/15 bg-white/10 backdrop-blur-md text-indigo-50 tracking-wide">
             <span className="w-2 h-2 rounded-full bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-emerald-400 animate-pulse" />
             ALPHA PREVIEW
@@ -19,16 +33,17 @@ export default function LandingPage() {
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight bg-clip-text text-transparent bg-[linear-gradient(90deg,#a5b4fc_0%,#f5a2ff_40%,#6ee7b7_80%)] bg-[length:200%_200%] animate-[pulseGradient_10s_ease_infinite] drop-shadow">
             Build strength & track progress with clarity & momentum
           </h1>
-          <p className="text-lg md:text-xl text-indigo-100/80 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-indigo-100/80 leading-relaxed max-w-3xl mx-auto lg:mx-0">
             Log workouts fast, visualize performance trends, and stay consistent. Your training data becomes an evolving story you can act on.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+          <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 pt-2">
             <Link href="/auth/signup" className="relative text-sm shadow-lg inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-emerald-500 bg-[length:300%_300%] animate-[pulseGradient_6s_ease_infinite] hover:scale-[1.04] transition">
               Get Started
             </Link>
             <Link href="/pricing" className="text-sm rounded-full px-6 py-3 bg-white/10 hover:bg-white/20 transition backdrop-blur text-indigo-50 font-medium shadow">
               Pricing
             </Link>
+          </div>
           </div>
         </div>
 
