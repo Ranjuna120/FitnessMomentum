@@ -7,7 +7,7 @@ export default function LandingPage() {
     {/* Global full-page background image (above base gradient, below overlays) */}
     <div className="absolute inset-0 -z-30">
         <Image
-          src="/images/loading.jpg"
+          src="/images/loading2.jpg"
           alt="Site background"
           fill
           sizes="100vw"
