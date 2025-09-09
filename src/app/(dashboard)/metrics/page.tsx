@@ -15,15 +15,19 @@ export default async function MetricsPage() {
   const avgWeight = metrics.length ? (metrics.reduce((a: number, m: any) => a + (m.weightKg || 0), 0) / metrics.filter((m: any)=>m.weightKg).length).toFixed(1) : '--'
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen overflow-hidden">
       {/* Background layers */}
-      <div className="absolute inset-0 -z-30 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900" />
+      <div className="absolute inset-0 -z-40 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900" />
       <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_15%_20%,rgba(99,102,241,.55),transparent_60%),radial-gradient(circle_at_80%_25%,rgba(236,72,153,.45),transparent_60%),radial-gradient(circle_at_35%_80%,rgba(16,185,129,.40),transparent_65%)]" />
-      <div className="absolute inset-0 -z-10 backdrop-blur-[2px]" />
+      {/* Global full-page background image (placed above radial accents) */}
+      <div className="absolute inset-0 -z-10">
+        <img src="/images/BodyMetrics.jpg" alt="Body Metrics background" className="w-full h-full object-cover object-center opacity-60" />
+      </div>
+      <div className="absolute inset-0 z-[-5] backdrop-blur-[2px]" />
 
       {/* Header */}
       <div className="relative px-6 pt-10 pb-10 md:pb-14 overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_30%_40%,rgba(255,255,255,.08),transparent_70%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,.06),transparent_70%)]" />
+  <div className="absolute inset-0 -z-30 bg-[radial-gradient(circle_at_30%_40%,rgba(255,255,255,.08),transparent_70%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,.06),transparent_70%)]" />
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div className="space-y-2">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-fuchsia-300 to-emerald-300 drop-shadow">Body Metrics</h1>
