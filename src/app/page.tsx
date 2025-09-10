@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import Image from 'next/image'
+// import ScrollTimingCard from '../components/ScrollTimingCard'
 
 export default function LandingPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden">
+    <main className="relative min-h-screen overflow-x-hidden">
+  {/* <ScrollTimingCard /> */}
     {/* Global full-page background image (above base gradient, below overlays) */}
     <div className="absolute inset-0 -z-30">
         <Image
@@ -82,6 +84,26 @@ export default function LandingPage() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/auth/signup" className="relative text-sm shadow-lg inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-emerald-500 bg-[length:300%_300%] animate-[pulseGradient_6s_ease_infinite] hover:scale-[1.04] transition">Create Free Account</Link>
               <Link href="/auth/signin" className="text-sm rounded-full px-6 py-3 bg-white/10 hover:bg-white/20 transition backdrop-blur text-indigo-50 font-medium shadow">Sign In</Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Timing section (added at the bottom) */}
+        <div id="timing" className="relative w-full max-w-5xl mt-12">
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md px-8 py-10 text-center text-indigo-50">
+            <div className="absolute -right-24 -top-24 w-80 h-80 rounded-full bg-gradient-to-br from-indigo-500/20 to-fuchsia-500/20 blur-3xl" />
+            <div className="absolute -left-24 -bottom-24 w-80 h-80 rounded-full bg-gradient-to-br from-emerald-500/20 to-teal-500/20 blur-3xl" />
+
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight relative z-10">Unleash Your Inner Strength</h2>
+            <div className="mt-6 space-y-1 relative z-10">
+              <p className="text-base md:text-lg opacity-90">Timing</p>
+              <p className="text-sm md:text-base opacity-90">Unisex Timing</p>
+              <p className="mt-2 text-lg md:text-2xl font-semibold">6:00 AM to 10:00 AM and 5:00 PM to 11:00 PM</p>
+            </div>
+
+            <div className="mt-6 space-y-1 relative z-10">
+              <p className="text-base md:text-lg font-semibold">Separate Ladies Timing with Ladies Trainer and Ladies Staff</p>
+              <p className="mt-1 text-lg md:text-2xl font-semibold">10:30 AM to 5:00 PM</p>
             </div>
           </div>
         </div>
