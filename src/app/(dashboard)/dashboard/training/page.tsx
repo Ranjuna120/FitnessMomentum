@@ -227,7 +227,7 @@ export default function TrainingPage() {
         <div className="grid sm:grid-cols-2 gap-5">
           {specialMemberships.map((p) => (
             <div key={p.name} className={`group relative rounded-2xl p-[1px] bg-gradient-to-br ${p.gradient} shadow-[0_0_0_1px_rgba(255,255,255,0.06)] hover:shadow-[0_0_0_1px_rgba(255,255,255,0.12),0_10px_35px_-8px_rgba(0,0,0,0.6)] transition-transform will-change-transform`}>
-              <div className="relative rounded-2xl h-full w-full bg-white/5 backdrop-blur-md border border-white/10 p-5 text-indigo-50 group-hover:scale-[1.01] transition">
+              <div className="relative rounded-2xl h-full w-full bg-transparent backdrop-blur-0 border border-white/10 p-5 text-indigo-50 group-hover:scale-[1.01] transition">
                 <div className={`pointer-events-none absolute -right-8 -top-10 w-32 h-32 rounded-full bg-gradient-to-br blur-3xl opacity-40 ${p.gradient}`} />
                 <div className="relative z-10 space-y-3">
                   <div className="flex items-center gap-2">
