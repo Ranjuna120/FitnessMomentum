@@ -1,10 +1,49 @@
 import { getCurrentUser } from '../../../lib/auth'
+import { prisma } from '../../../lib/prisma'
 import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
 
 export default async function DashboardPage() {
   const user = await getCurrentUser()
+  if (!user) {
+    // Protected by middleware, but keep a safety net
+    return null
+  }
+
+  // Fetch recent workout sessions and latest body metric
+  const since7 = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+  const since30 = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+  const sessions = await prisma.workoutSession.findMany({
+    where: { userId: (user as any).id, startedAt: { gte: since30 } },
+    orderBy: { startedAt: 'desc' },
+    include: { sets: true }
+  })
+  const latestMetric = await prisma.bodyMetric.findFirst({
+    where: { userId: (user as any).id },
+    orderBy: { recordedAt: 'desc' }
+  })
+
+  // Compute simple, robust stats without assuming set schema beyond length
+  const sessions30d = sessions.length
+  const sets7d = sessions.filter(s => new Date(s.startedAt) >= since7).reduce((a: number, s: any) => a + s.sets.length, 0)
+
+  // Streak: count consecutive days (including today) with at least one session
+  const dayKeys = new Set(
+    sessions.map(s => new Date(s.startedAt)).map(d => new Date(d.getFullYear(), d.getMonth(), d.getDate()).toISOString())
+  )
+  let streak = 0
+  for (let i = 0; i < 90; i++) {
+    const d = new Date()
+    d.setHours(0, 0, 0, 0)
+    d.setDate(d.getDate() - i)
+    const key = d.toISOString()
+    if (dayKeys.has(key)) streak++
+    else break
+  }
+
+  const latestWeightVal = latestMetric?.weightKg
+  const latestWeight = typeof latestWeightVal === 'number' ? `${latestWeightVal} kg` : '--'
 
   return (
     <div className="relative min-h-screen">
@@ -22,10 +61,10 @@ export default async function DashboardPage() {
             <p className="text-sm text-indigo-100/85 max-w-xl">Welcome back{user?.name ? `, ${user.name}` : ''}. Here's a quick snapshot of your training momentum.</p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <StatCard label="Streak" value="0 days" gradient="from-indigo-500/30 to-fuchsia-600/30" glow="from-indigo-500/40 to-indigo-700/40" />
-            <StatCard label="7d Volume" value="--" gradient="from-emerald-500/25 to-teal-600/30" glow="from-emerald-500/40 to-teal-700/40" />
-            <StatCard label="Sessions (30d)" value="--" gradient="from-rose-500/25 to-pink-600/30" glow="from-rose-500/40 to-pink-700/40" />
-            <StatCard label="Upcoming" value="--" gradient="from-amber-500/25 to-orange-600/30" glow="from-amber-500/40 to-orange-700/40" />
+            <StatCard label="Streak" value={`${streak} day${streak === 1 ? '' : 's'}`} gradient="from-indigo-500/30 to-fuchsia-600/30" glow="from-indigo-500/40 to-indigo-700/40" />
+            <StatCard label="Sets (7d)" value={`${sets7d}`} gradient="from-emerald-500/25 to-teal-600/30" glow="from-emerald-500/40 to-teal-700/40" />
+            <StatCard label="Sessions (30d)" value={`${sessions30d}`} gradient="from-rose-500/25 to-pink-600/30" glow="from-rose-500/40 to-pink-700/40" />
+            <StatCard label="Latest Weight" value={latestWeight} gradient="from-amber-500/25 to-orange-600/30" glow="from-amber-500/40 to-orange-700/40" />
           </div>
         </div>
       </div>
