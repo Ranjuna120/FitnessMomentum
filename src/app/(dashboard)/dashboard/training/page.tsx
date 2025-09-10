@@ -97,6 +97,43 @@ const personalTraining = [
   },
 ]
 
+const specialMemberships = [
+  {
+    name: 'Student Pass',
+    prices: [
+      { months: 6, price: 'Rs 7,499', audience: 'Individual' },
+      { months: 3, price: 'Rs 5,499', audience: 'Individual' },
+    ],
+    bullets: [
+      'Made for college/school students only.',
+      'Requires an active student ID card and Aadhar.',
+      'Applicable for new members only.',
+      'Valid for individuals aged up to 15 – 25 years only.',
+      'No coaching/exam admit cards are applicable.',
+      'No part payments are applicable.',
+    ],
+    gradient: 'from-emerald-400/40 via-green-500/25 to-emerald-700/20',
+    icon: '🎓',
+  },
+  {
+    name: 'Corporate Pass',
+    highlights: [
+      { lead: 'No Cost EMI', tail: ' applicable for ', value: '3/6 months' },
+      { lead: 'EMI', tail: ' applicable upto ', value: '24 months' },
+    ],
+    bullets: [
+      'Made for corporate professionals only.',
+      'Requires an active employee ID card and Aadhar.',
+      'Applicable for new members only.',
+      'Valid for individuals aged above 24 years only.',
+      'No job offer/ appointment letters are applicable.',
+      'No part payments are applicable.',
+    ],
+    gradient: 'from-lime-400/35 via-emerald-500/25 to-teal-700/20',
+    icon: '💼',
+  },
+]
+
 export default function TrainingPage() {
   return (
     <div className="relative p-6 md:p-8">
@@ -174,6 +211,61 @@ export default function TrainingPage() {
                       <li>{p.note}</li>
                     </ul>
                   )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Spacer */}
+      <div className="h-12" />
+
+      {/* Special Memberships */}
+      <section aria-labelledby="special-heading" className="space-y-4">
+        <h2 id="special-heading" className="text-lg font-semibold text-indigo-50 drop-shadow">Special Memberships</h2>
+        <div className="grid sm:grid-cols-2 gap-5">
+          {specialMemberships.map((p) => (
+            <div key={p.name} className={`group relative rounded-2xl p-[1px] bg-gradient-to-br ${p.gradient} shadow-[0_0_0_1px_rgba(255,255,255,0.06)] hover:shadow-[0_0_0_1px_rgba(255,255,255,0.12),0_10px_35px_-8px_rgba(0,0,0,0.6)] transition-transform will-change-transform`}>
+              <div className="relative rounded-2xl h-full w-full bg-white/5 backdrop-blur-md border border-white/10 p-5 text-indigo-50 group-hover:scale-[1.01] transition">
+                <div className={`pointer-events-none absolute -right-8 -top-10 w-32 h-32 rounded-full bg-gradient-to-br blur-3xl opacity-40 ${p.gradient}`} />
+                <div className="relative z-10 space-y-3">
+                  <div className="flex items-center gap-2">
+                    {p.icon && (
+                      <span aria-hidden className="text-xl" title={p.name}>{p.icon}</span>
+                    )}
+                    <h3 className="text-2xl font-extrabold tracking-tight leading-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 via-fuchsia-200 to-emerald-200 drop-shadow">{p.name}</h3>
+                  </div>
+
+                  {p.prices && (
+                    <div className="text-sm md:text-base text-indigo-50/95 space-y-1">
+                      {p.prices.map((l) => (
+                        <p key={`${l.months}-${l.audience}`}>
+                          x {l.months} {l.months === 1 ? 'month' : 'months'} at {l.price} <span className="font-semibold">({l.audience})</span>
+                        </p>
+                      ))}
+                    </div>
+                  )}
+
+                  {p.highlights && (
+                    <div className="text-sm md:text-base text-indigo-50/95 space-y-0.5">
+                      {p.highlights.map((h) => (
+                        <p key={h.lead}>
+                          <span className="font-semibold">{h.lead}</span>
+                          {h.tail}
+                          <span className="font-bold">{h.value}</span>
+                        </p>
+                      ))}
+                    </div>
+                  )}
+
+                  {p.bullets?.length ? (
+                    <ul className="mt-2 text-[12px] md:text-[13px] text-indigo-100/90 list-disc pl-5 space-y-2">
+                      {p.bullets.map((b) => (
+                        <li key={b}>{b}</li>
+                      ))}
+                    </ul>
+                  ) : null}
                 </div>
               </div>
             </div>
