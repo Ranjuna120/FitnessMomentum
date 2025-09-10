@@ -7,7 +7,8 @@ const links = [
   { href: '/dashboard/workouts', label: 'Workouts' },
   { href: '/dashboard/metrics', label: 'Metrics' },
   { href: '/dashboard/nutrition', label: 'Nutrition' },
-  
+  { href: '/dashboard/pricing', label: 'Pricing' },
+  { href: '/dashboard/about', label: 'About' },
 ]
 
 export function Sidebar() {
