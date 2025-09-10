@@ -7,8 +7,8 @@ const membershipPlans = [
   {
     name: 'Platinum',
     months: 12,
-    priceIndividual: '₹ 13,499',
-    priceCouple: '₹ 23,999',
+  priceIndividual: 'Rs 13,499',
+  priceCouple: 'Rs 23,999',
     features: [
       'Group Activities / Yoga Sessions',
       'Personalized Diet Consultation',
@@ -21,8 +21,8 @@ const membershipPlans = [
   {
     name: 'Gold',
     months: 6,
-    priceIndividual: '₹ 7,499',
-    priceCouple: '₹ 13,999',
+  priceIndividual: 'Rs 7,499',
+  priceCouple: 'Rs 13,999',
     features: [
       'Group Activities / Yoga Sessions',
       'Personalized Diet Consultation',
@@ -35,8 +35,8 @@ const membershipPlans = [
   {
     name: 'Silver',
     months: 3,
-    priceIndividual: '₹ 5,499',
-    priceCouple: '₹ 9,999',
+  priceIndividual: 'Rs 5,499',
+  priceCouple: 'Rs 9,999',
     features: [
       'Group Activities',
       'General Diet Consultation',
@@ -49,8 +49,8 @@ const membershipPlans = [
   {
     name: 'Bronze',
     months: 1,
-    priceIndividual: '₹ 2,499',
-    priceCouple: '₹ 4,299',
+  priceIndividual: 'Rs 2,499',
+  priceCouple: 'Rs 4,299',
     features: [
       'Group Activities',
       'General Diet Consultation',
@@ -66,7 +66,7 @@ const personalTraining = [
     name: 'Elite',
     tag: 'Big Value Saver',
     months: 12,
-    price: '₹ 64,999',
+  price: 'Rs 64,999',
     audience: 'Individual',
     note: 'Requires an active existing/new basic membership plan with the same validity.',
     gradient: 'from-fuchsia-500/30 to-purple-700/20',
@@ -74,7 +74,7 @@ const personalTraining = [
   {
     name: 'Pro',
     months: 6,
-    price: '₹ 34,999',
+  price: 'Rs 34,999',
     audience: 'Individual',
     note: 'Requires an active existing/new basic membership plan with the same validity.',
     gradient: 'from-indigo-500/30 to-blue-700/20',
@@ -82,7 +82,7 @@ const personalTraining = [
   {
     name: 'Premium',
     months: 3,
-    price: '₹ 19,999',
+  price: 'Rs 19,999',
     audience: 'Individual',
     note: 'Requires an active existing/new basic membership plan with the same validity.',
     gradient: 'from-emerald-500/30 to-teal-700/20',
@@ -90,7 +90,7 @@ const personalTraining = [
   {
     name: 'Plus',
     months: 1,
-    price: '₹ 6,999',
+  price: 'Rs 6,999',
     audience: 'Individual',
     note: 'Requires an active existing/new basic membership plan with the same validity.',
     gradient: 'from-cyan-400/30 to-sky-600/20',
