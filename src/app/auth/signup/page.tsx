@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export default async function SignupPage() {
   const session = await getServerSession(authOptions)
-  if (session) redirect('/dashboard')
+  // Always show the signup form even if a session exists
   return (
     <main className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
       {/* Background */}
