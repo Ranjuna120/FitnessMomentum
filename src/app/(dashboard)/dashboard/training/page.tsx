@@ -11,10 +11,39 @@ const membershipPlans = [
 ]
 
 const personalTraining = [
-  { name: 'Elite', gradient: 'from-fuchsia-500/30 to-purple-700/20' },
-  { name: 'Pro', gradient: 'from-indigo-500/30 to-blue-700/20' },
-  { name: 'Premium', gradient: 'from-emerald-500/30 to-teal-700/20' },
-  { name: 'Plus', gradient: 'from-cyan-400/30 to-sky-600/20' },
+  {
+    name: 'Elite',
+    tag: 'Big Value Saver',
+    months: 12,
+    price: '₹ 64,999',
+    audience: 'Individual',
+    note: 'Requires an active existing/new basic membership plan with the same validity.',
+    gradient: 'from-fuchsia-500/30 to-purple-700/20',
+  },
+  {
+    name: 'Pro',
+    months: 6,
+    price: '₹ 34,999',
+    audience: 'Individual',
+    note: 'Requires an active existing/new basic membership plan with the same validity.',
+    gradient: 'from-indigo-500/30 to-blue-700/20',
+  },
+  {
+    name: 'Premium',
+    months: 3,
+    price: '₹ 19,999',
+    audience: 'Individual',
+    note: 'Requires an active existing/new basic membership plan with the same validity.',
+    gradient: 'from-emerald-500/30 to-teal-700/20',
+  },
+  {
+    name: 'Plus',
+    months: 1,
+    price: '₹ 6,999',
+    audience: 'Individual',
+    note: 'Requires an active existing/new basic membership plan with the same validity.',
+    gradient: 'from-cyan-400/30 to-sky-600/20',
+  },
 ]
 
 export default function TrainingPage() {
@@ -60,9 +89,23 @@ export default function TrainingPage() {
           {personalTraining.map((p) => (
             <div key={p.name} className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur p-5 text-indigo-50 shadow-sm hover:shadow-xl transition">
               <div className={`pointer-events-none absolute -right-6 -top-6 w-28 h-28 rounded-full bg-gradient-to-br ${p.gradient} blur-2xl opacity-60`} />
-              <div className="relative z-10">
-                <h3 className="text-base font-semibold tracking-wide drop-shadow">{p.name}</h3>
-                <p className="text-[13px] text-indigo-100/80 mt-1">1:1 coaching tailored to your goals.</p>
+              <div className="relative z-10 space-y-2">
+                <div className="flex items-baseline gap-2 flex-wrap">
+                  <h3 className="text-2xl font-extrabold tracking-tight drop-shadow leading-none">{p.name}</h3>
+                  {p.tag && (
+                    <span className="text-[10px] font-semibold tracking-wide px-2 py-0.5 rounded-full bg-white/10 border border-white/15 text-indigo-50/90">
+                      {p.tag}
+                    </span>
+                  )}
+                </div>
+                <p className="text-sm md:text-base text-indigo-100/90">
+                  x {p.months} {p.months === 1 ? 'month' : 'months'} at {p.price} ({p.audience})
+                </p>
+                {p.note && (
+                  <ul className="mt-2 text-[12px] md:text-[13px] text-indigo-100/80 list-disc pl-5">
+                    <li>{p.note}</li>
+                  </ul>
+                )}
               </div>
             </div>
           ))}
