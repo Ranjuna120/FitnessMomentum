@@ -44,7 +44,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <SignOutButton small />
           </div>
         </header>
-  <main className="flex-1 pt-0 lg:pt-0 relative overflow-y-auto overscroll-y-contain scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10 hover:scrollbar-thumb-white/20 pr-2">
+  <main className="flex-1 pt-0 lg:pt-0 relative overflow-y-auto overscroll-y-contain scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10 hover:scrollbar-thumb-white/20 pr-2 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900">
     {/* Background layers for main content */}
     <div className="absolute inset-0 -z-30 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900" />
     <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_20%_15%,rgba(99,102,241,.28),transparent_60%),radial-gradient(circle_at_80%_25%,rgba(236,72,153,.22),transparent_60%),radial-gradient(circle_at_40%_85%,rgba(16,185,129,.24),transparent_60%)]" />
