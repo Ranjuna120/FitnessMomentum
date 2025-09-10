@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export default async function SignInPage() {
   const session = await getServerSession(authOptions)
-  if (session) redirect('/dashboard')
+  // Always show the sign-in form even if a session exists; user explicitly clicked Get Started
   return (
     <main className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
       <div className="absolute inset-0 -z-40 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900" />
