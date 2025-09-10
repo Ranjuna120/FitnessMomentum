@@ -4,10 +4,61 @@ export const metadata = {
 }
 
 const membershipPlans = [
-  { name: 'Platinum', gradient: 'from-indigo-500/30 via-fuchsia-500/30 to-emerald-500/30' },
-  { name: 'Gold', gradient: 'from-amber-400/30 via-orange-500/25 to-rose-500/25' },
-  { name: 'Silver', gradient: 'from-slate-300/30 via-gray-400/25 to-indigo-400/20' },
-  { name: 'Bronze', gradient: 'from-amber-700/30 via-orange-700/25 to-rose-700/20' },
+  {
+    name: 'Platinum',
+    months: 12,
+    priceIndividual: '₹ 13,499',
+    priceCouple: '₹ 23,999',
+    features: [
+      'Group Activities / Yoga Sessions',
+      'Personalized Diet Consultation',
+      'Advanced Body Scan Analysis',
+      'Personalized Exercise Counseling',
+      'Advanced Guidance',
+    ],
+    gradient: 'from-indigo-500/30 via-fuchsia-500/30 to-emerald-500/30',
+  },
+  {
+    name: 'Gold',
+    months: 6,
+    priceIndividual: '₹ 7,499',
+    priceCouple: '₹ 13,999',
+    features: [
+      'Group Activities / Yoga Sessions',
+      'Personalized Diet Consultation',
+      'Body Scan Analysis',
+      'Personalized Exercise Counseling',
+      'Progressive Guidance',
+    ],
+    gradient: 'from-amber-400/30 via-orange-500/25 to-rose-500/25',
+  },
+  {
+    name: 'Silver',
+    months: 3,
+    priceIndividual: '₹ 5,499',
+    priceCouple: '₹ 9,999',
+    features: [
+      'Group Activities',
+      'General Diet Consultation',
+      'Body Scan Analysis',
+      'General Exercise Counseling',
+      'General Guidance',
+    ],
+    gradient: 'from-slate-300/30 via-gray-400/25 to-indigo-400/20',
+  },
+  {
+    name: 'Bronze',
+    months: 1,
+    priceIndividual: '₹ 2,499',
+    priceCouple: '₹ 4,299',
+    features: [
+      'Group Activities',
+      'General Diet Consultation',
+      'General Exercise Counseling',
+      'General Guidance',
+    ],
+    gradient: 'from-amber-700/30 via-orange-700/25 to-rose-700/20',
+  },
 ]
 
 const personalTraining = [
@@ -70,9 +121,23 @@ export default function TrainingPage() {
           {membershipPlans.map((p) => (
             <div key={p.name} className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur p-5 text-indigo-50 shadow-sm hover:shadow-xl transition">
               <div className={`pointer-events-none absolute -right-6 -top-6 w-28 h-28 rounded-full bg-gradient-to-br ${p.gradient} blur-2xl opacity-60`} />
-              <div className="relative z-10">
-                <h3 className="text-base font-semibold tracking-wide drop-shadow">{p.name}</h3>
-                <p className="text-[13px] text-indigo-100/80 mt-1">Unlimited access, classes, and more.</p>
+              <div className="relative z-10 space-y-3">
+                <h3 className="text-2xl font-extrabold tracking-tight drop-shadow leading-tight">{p.name} Membership</h3>
+                <div className="text-sm md:text-base text-indigo-100/90 space-y-1">
+                  <p>
+                    x {p.months} {p.months === 1 ? 'month' : 'months'} at {p.priceIndividual} <span className="font-semibold">(Individual)</span>
+                  </p>
+                  <p>
+                    x {p.months} {p.months === 1 ? 'month' : 'months'} at {p.priceCouple} <span className="font-semibold">(Couple)</span>
+                  </p>
+                </div>
+                {p.features?.length ? (
+                  <ul className="mt-2 text-[12px] md:text-[13px] text-indigo-100/85 list-disc pl-5 space-y-2">
+                    {p.features.map((f) => (
+                      <li key={f}>{f}</li>
+                    ))}
+                  </ul>
+                ) : null}
               </div>
             </div>
           ))}
