@@ -23,8 +23,9 @@ html, body { margin:0; }
 body {
   background-color: rgb(var(--background));
   color: rgb(var(--foreground));
-  /* Remove page scrolling globally; remove overflow properties if you need scroll again */
-  overflow: hidden;
+  /* Allow vertical scrolling globally; hide only horizontal overflow to prevent sideways scroll from wide backgrounds */
+  overflow-x: hidden;
+  overflow-y: auto;
   overscroll-behavior: none;
 }
 
