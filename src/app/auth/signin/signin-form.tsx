@@ -14,7 +14,7 @@ export default function SignInForm() {
     const res = await signIn('credentials', { email, password, redirect: false })
     setLoading(false)
     if (res?.error) setError(res.error)
-    else window.location.href = '/dashboard'
+    else await signIn('credentials', { email, password, callbackUrl: '/dashboard' })
   }
 
   return (
@@ -23,7 +23,7 @@ export default function SignInForm() {
       <input className="border rounded px-3 py-2" type="password" required placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
       {error && <p className="text-sm text-red-500">{error}</p>}
       <button disabled={loading} className="bg-brand text-white rounded py-2 font-medium disabled:opacity-50">{loading ? 'Signing in...' : 'Sign In'}</button>
-      <button type="button" onClick={() => signIn('google')} className="border rounded py-2 font-medium">Continue with Google</button>
+  <button type="button" onClick={() => signIn('google', { callbackUrl: '/dashboard' })} className="border rounded py-2 font-medium">Continue with Google</button>
     </form>
   )
 }
