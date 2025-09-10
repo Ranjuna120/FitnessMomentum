@@ -117,27 +117,29 @@ export default function TrainingPage() {
       {/* Membership section */}
       <section aria-labelledby="membership-heading" className="space-y-4">
         <h2 id="membership-heading" className="text-lg font-semibold text-indigo-50 drop-shadow">Membership</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {membershipPlans.map((p) => (
-            <div key={p.name} className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur p-5 text-indigo-50 shadow-sm hover:shadow-xl transition">
-              <div className={`pointer-events-none absolute -right-6 -top-6 w-28 h-28 rounded-full bg-gradient-to-br ${p.gradient} blur-2xl opacity-60`} />
-              <div className="relative z-10 space-y-3">
-                <h3 className="text-2xl font-extrabold tracking-tight drop-shadow leading-tight">{p.name} Membership</h3>
-                <div className="text-sm md:text-base text-indigo-100/90 space-y-1">
-                  <p>
-                    x {p.months} {p.months === 1 ? 'month' : 'months'} at {p.priceIndividual} <span className="font-semibold">(Individual)</span>
-                  </p>
-                  <p>
-                    x {p.months} {p.months === 1 ? 'month' : 'months'} at {p.priceCouple} <span className="font-semibold">(Couple)</span>
-                  </p>
+            <div key={p.name} className={`group relative rounded-2xl p-[1px] bg-gradient-to-br ${p.gradient} shadow-[0_0_0_1px_rgba(255,255,255,0.06)] hover:shadow-[0_0_0_1px_rgba(255,255,255,0.12),0_10px_35px_-8px_rgba(0,0,0,0.6)] transition-transform will-change-transform`}> 
+              <div className="relative rounded-2xl h-full w-full bg-white/5 backdrop-blur-md border border-white/10 p-5 text-indigo-50 group-hover:scale-[1.01] transition">
+                <div className={`pointer-events-none absolute -right-8 -top-10 w-32 h-32 rounded-full bg-gradient-to-br blur-3xl opacity-40 ${p.gradient}`} />
+                <div className="relative z-10 space-y-3">
+                  <h3 className="text-2xl font-extrabold tracking-tight leading-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 via-fuchsia-200 to-emerald-200 drop-shadow">{p.name} Membership</h3>
+                  <div className="text-sm md:text-base text-indigo-50/95 space-y-1">
+                    <p>
+                      x {p.months} {p.months === 1 ? 'month' : 'months'} at {p.priceIndividual} <span className="font-semibold">(Individual)</span>
+                    </p>
+                    <p>
+                      x {p.months} {p.months === 1 ? 'month' : 'months'} at {p.priceCouple} <span className="font-semibold">(Couple)</span>
+                    </p>
+                  </div>
+                  {p.features?.length ? (
+                    <ul className="mt-2 text-[12px] md:text-[13px] text-indigo-100/90 list-disc pl-5 space-y-2">
+                      {p.features.map((f) => (
+                        <li key={f}>{f}</li>
+                      ))}
+                    </ul>
+                  ) : null}
                 </div>
-                {p.features?.length ? (
-                  <ul className="mt-2 text-[12px] md:text-[13px] text-indigo-100/85 list-disc pl-5 space-y-2">
-                    {p.features.map((f) => (
-                      <li key={f}>{f}</li>
-                    ))}
-                  </ul>
-                ) : null}
               </div>
             </div>
           ))}
@@ -150,27 +152,29 @@ export default function TrainingPage() {
       {/* Personal Training section */}
       <section aria-labelledby="pt-heading" className="space-y-4">
         <h2 id="pt-heading" className="text-lg font-semibold text-indigo-50 drop-shadow">Personal Training</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {personalTraining.map((p) => (
-            <div key={p.name} className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur p-5 text-indigo-50 shadow-sm hover:shadow-xl transition">
-              <div className={`pointer-events-none absolute -right-6 -top-6 w-28 h-28 rounded-full bg-gradient-to-br ${p.gradient} blur-2xl opacity-60`} />
-              <div className="relative z-10 space-y-2">
-                <div className="flex items-baseline gap-2 flex-wrap">
-                  <h3 className="text-2xl font-extrabold tracking-tight drop-shadow leading-none">{p.name}</h3>
-                  {p.tag && (
-                    <span className="text-[10px] font-semibold tracking-wide px-2 py-0.5 rounded-full bg-white/10 border border-white/15 text-indigo-50/90">
-                      {p.tag}
-                    </span>
+            <div key={p.name} className={`group relative rounded-2xl p-[1px] bg-gradient-to-br ${p.gradient} shadow-[0_0_0_1px_rgba(255,255,255,0.06)] hover:shadow-[0_0_0_1px_rgba(255,255,255,0.12),0_10px_35px_-8px_rgba(0,0,0,0.6)] transition-transform will-change-transform`}>
+              <div className="relative rounded-2xl h-full w-full bg-white/5 backdrop-blur-md border border-white/10 p-5 text-indigo-50 group-hover:scale-[1.01] transition">
+                <div className={`pointer-events-none absolute -right-8 -top-10 w-32 h-32 rounded-full bg-gradient-to-br blur-3xl opacity-40 ${p.gradient}`} />
+                <div className="relative z-10 space-y-2">
+                  <div className="flex items-baseline gap-2 flex-wrap">
+                    <h3 className="text-2xl font-extrabold tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 via-fuchsia-200 to-emerald-200 drop-shadow">{p.name}</h3>
+                    {p.tag && (
+                      <span className="text-[10px] font-semibold tracking-wide px-2 py-0.5 rounded-full bg-white/15 border border-white/20 text-indigo-50/90">
+                        {p.tag}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-sm md:text-base text-indigo-50/95">
+                    x {p.months} {p.months === 1 ? 'month' : 'months'} at {p.price} ({p.audience})
+                  </p>
+                  {p.note && (
+                    <ul className="mt-2 text-[12px] md:text-[13px] text-indigo-100/90 list-disc pl-5">
+                      <li>{p.note}</li>
+                    </ul>
                   )}
                 </div>
-                <p className="text-sm md:text-base text-indigo-100/90">
-                  x {p.months} {p.months === 1 ? 'month' : 'months'} at {p.price} ({p.audience})
-                </p>
-                {p.note && (
-                  <ul className="mt-2 text-[12px] md:text-[13px] text-indigo-100/80 list-disc pl-5">
-                    <li>{p.note}</li>
-                  </ul>
-                )}
               </div>
             </div>
           ))}
