@@ -8,6 +8,7 @@ const links = [
   { href: '/dashboard/metrics', label: 'Metrics' },
   { href: '/dashboard/nutrition', label: 'Nutrition' },
   { href: '/pricing', label: 'Pricing' },
+  { href: '/dashboard/about', label: 'About' },
   { href: '/dashboard/profile', label: 'Profile' },
 ]
 
