@@ -23,6 +23,11 @@ export default async function DashboardPage() {
     where: { userId: (user as any).id },
     orderBy: { recordedAt: 'desc' }
   })
+  const recentMetrics = await prisma.bodyMetric.findMany({
+    where: { userId: (user as any).id },
+    orderBy: { recordedAt: 'desc' },
+    take: 5
+  })
 
   // Compute simple, robust stats without assuming set schema beyond length
   const sessions30d = sessions.length
@@ -44,6 +49,8 @@ export default async function DashboardPage() {
 
   const latestWeightVal = latestMetric?.weightKg
   const latestWeight = typeof latestWeightVal === 'number' ? `${latestWeightVal} kg` : '--'
+  const lastMetricDate = latestMetric?.recordedAt ? new Date(latestMetric.recordedAt) : null
+  const needsMetricUpdate = !lastMetricDate || (Date.now() - lastMetricDate.getTime()) > 3 * 24 * 60 * 60 * 1000
 
   return (
     <div className="relative min-h-screen">
@@ -71,16 +78,56 @@ export default async function DashboardPage() {
 
       {/* Main content */}
       <div className="px-6 pb-24 -mt-4 space-y-10 relative">
-        {/* Recent Highlights placeholder */}
+        {/* Highlights */}
         <section className="space-y-4">
           <div className="flex items-center justify-between flex-wrap gap-3 text-indigo-50">
             <h2 className="text-lg font-semibold">Highlights</h2>
-            <span className="text-[11px] px-2 py-1 rounded-full bg-white/10 backdrop-blur">Beta</span>
+            <span className="text-[11px] px-2 py-1 rounded-full bg-white/10 backdrop-blur">Live</span>
           </div>
           <div className="grid gap-5 md:grid-cols-3">
-            <div className="relative overflow-hidden rounded-xl p-5 border border-white/10 bg-white/5 backdrop-blur-md text-indigo-50 text-sm min-h-[120px] flex items-center justify-center opacity-70">Coming soon</div>
-            <div className="relative overflow-hidden rounded-xl p-5 border border-white/10 bg-white/5 backdrop-blur-md text-indigo-50 text-sm min-h-[120px] flex items-center justify-center opacity-70">Progress charts</div>
-            <div className="relative overflow-hidden rounded-xl p-5 border border-white/10 bg-white/5 backdrop-blur-md text-indigo-50 text-sm min-h-[120px] flex items-center justify-center opacity-70">PR timeline</div>
+            {/* Last session summary */}
+            <div className="relative overflow-hidden rounded-xl p-5 border border-white/10 bg-white/5 backdrop-blur-md text-indigo-50 text-sm min-h-[120px]">
+              <div className="absolute right-2 top-2 w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500/30 to-fuchsia-600/30 blur-2xl" />
+              <p className="text-[11px] uppercase tracking-wide text-indigo-100/70">Last Session</p>
+              <p className="mt-1 text-base font-medium">{sessions[0] ? new Date(sessions[0].startedAt).toLocaleString() : '—'}</p>
+              <p className="opacity-90 mt-1">{sessions[0] ? `${sessions[0].sets?.length ?? 0} sets` : 'No sessions yet'}</p>
+              {sessions[0] && (
+                <Link href={`/dashboard/workouts/${(sessions[0] as any).id}`} className="inline-block mt-3 text-[11px] rounded-full px-3 py-1 bg-white/10 hover:bg-white/20 transition">Open session</Link>
+              )}
+            </div>
+
+            {/* Recent body metrics list */}
+            <div className="relative overflow-hidden rounded-xl p-5 border border-white/10 bg-white/5 backdrop-blur-md text-indigo-50 text-sm min-h-[120px]">
+              <div className="absolute right-2 top-2 w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500/30 to-teal-600/30 blur-2xl" />
+              <p className="text-[11px] uppercase tracking-wide text-indigo-100/70">Recent Body Metrics</p>
+              <ul className="mt-2 space-y-1">
+                {recentMetrics.length === 0 && <li className="opacity-80">No entries yet</li>}
+                {recentMetrics.map((m: any) => (
+                  <li key={m.id} className="flex items-center justify-between">
+                    <span className="opacity-90">{new Date(m.recordedAt).toLocaleDateString()}</span>
+                    <span className="opacity-95">{m.weightKg ?? '—'} kg{m.bodyFatPct ? ` • ${m.bodyFatPct}%` : ''}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-3 flex gap-2">
+                <Link href="/dashboard/metrics" className="text-[11px] rounded-full px-3 py-1 bg-white/10 hover:bg-white/20 transition">View metrics</Link>
+                <Link href="/dashboard/metrics/new" className="text-[11px] rounded-full px-3 py-1 bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-emerald-500 text-white">Add</Link>
+              </div>
+            </div>
+
+            {/* Reminder / next step */}
+            <div className="relative overflow-hidden rounded-xl p-5 border border-white/10 bg-white/5 backdrop-blur-md text-indigo-50 text-sm min-h-[120px]">
+              <div className="absolute right-2 top-2 w-16 h-16 rounded-full bg-gradient-to-br from-amber-500/30 to-orange-600/30 blur-2xl" />
+              <p className="text-[11px] uppercase tracking-wide text-indigo-100/70">Next Step</p>
+              {needsMetricUpdate ? (
+                <>
+                  <p className="mt-1">It’s been a few days since your last metric.</p>
+                  <Link href="/dashboard/metrics/new" className="inline-block mt-3 text-[11px] rounded-full px-3 py-1 bg-white/10 hover:bg-white/20 transition">Add today’s weight</Link>
+                </>
+              ) : (
+                <p className="mt-1">You’re up to date. Keep training!</p>
+              )}
+            </div>
           </div>
         </section>
 
@@ -94,6 +141,7 @@ export default async function DashboardPage() {
             <OutlineAction href="/dashboard/metrics/new" text="Add Body Metric" />
             <OutlineAction href="/dashboard/workouts" text="View Workouts" />
             <OutlineAction href="/dashboard/metrics" text="View Metrics" />
+            <OutlineAction href="/dashboard/nutrition" text="Open Nutrition" />
           </div>
         </section>
       </div>
