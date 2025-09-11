@@ -8,7 +8,7 @@ const links = [
   { href: '/dashboard/metrics', label: 'Metrics' },
   { href: '/dashboard/nutrition', label: 'Nutrition' },
   { href: '/dashboard/training', label: 'Training' },
-  { href: '/pricing', label: 'Pricing' },
+  // { href: '/pricing', label: 'Pricing' },
   { href: '/dashboard/about', label: 'About' },
   { href: '/dashboard/profile', label: 'Profile' },
 ]
