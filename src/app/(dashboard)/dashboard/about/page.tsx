@@ -82,17 +82,39 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold text-indigo-50 mb-4 drop-shadow text-center md:text-left">Meet Our Coaches</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: 'Ravi', role: 'Head Coach' },
-              { name: 'Nisha', role: 'Strength Coach' },
-              { name: 'Amal', role: 'Mobility & Rehab' },
-              { name: 'Sasha', role: 'Ladies Coach' }
-            ].map((t) => (
-              <div key={t.name} className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-md p-4 text-indigo-50">
-                <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-full bg-gradient-to-br from-indigo-400 via-fuchsia-400 to-emerald-400" />
+              { name: 'Ravi', role: 'Head Coach', img: '/images/Coach1.jpg', email: '#', facebook: '#', instagram: '#' },
+              { name: 'Nisha', role: 'Strength Coach', img: '/images/Coach2.jpg', email: '#', facebook: '#', instagram: '#' },
+              { name: 'Amal', role: 'Mobility & Rehab', img: '/images/Coach3.jpg', email: '#', facebook: '#', instagram: '#' },
+              { name: 'Sasha', role: 'Ladies Coach', img: '/images/LadiesCoach.jpg', email: '#', facebook: '#', instagram: '#' }
+            ].map((c) => (
+              <div key={c.name} className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-md p-4 text-indigo-50">
+                <div className="relative h-44 w-full rounded-lg overflow-hidden border border-white/10 bg-slate-900/40">
+                  <Image src={c.img} alt={`${c.name} - ${c.role}`} fill sizes="(max-width: 768px) 100vw, (max-width:1200px) 50vw, 25vw" className="object-cover" />
+                </div>
+                <div className="mt-3 flex items-start justify-between gap-3">
                   <div>
-                    <p className="font-semibold leading-tight">{t.name}</p>
-                    <p className="text-xs text-indigo-100/70">{t.role}</p>
+                    <p className="font-semibold leading-tight drop-shadow-sm">{c.name}</p>
+                    <p className="text-xs text-indigo-100/75">{c.role}</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <a href={c.email} aria-label={`Email ${c.name}`} className="p-1.5 rounded-md bg-white/10 hover:bg-white/20 transition border border-white/10" title="Email">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-indigo-50">
+                        <path d="M4 6h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Z" stroke="currentColor" strokeWidth="1.5" />
+                        <path d="m3.5 7 8.5 6 8.5-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </a>
+                    <a href={c.facebook} aria-label={`${c.name} on Facebook`} className="p-1.5 rounded-md bg-white/10 hover:bg-white/20 transition border border-white/10" title="Facebook">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-indigo-50">
+                        <path d="M13.5 21v-7h2.5l.5-3.5h-3V8.5c0-1 .3-1.5 1.6-1.5H17V3.8c-.8-.1-1.6-.1-2.4 0-2.3.3-3.6 1.6-3.6 3.8V10H8v3.5h3v7h2.5Z" fill="currentColor" />
+                      </svg>
+                    </a>
+                    <a href={c.instagram} aria-label={`${c.name} on Instagram`} className="p-1.5 rounded-md bg-white/10 hover:bg-white/20 transition border border-white/10" title="Instagram">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-indigo-50">
+                        <rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" strokeWidth="1.5" />
+                        <circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="1.5" />
+                        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+                      </svg>
+                    </a>
                   </div>
                 </div>
               </div>
