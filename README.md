@@ -201,7 +201,7 @@ npm run dev
 ```
 Optional: `node prisma/seed.js` (if seed logic filled in).
 
-Prisma Studio:
+Prisma Studio:        // view the database tables
 ```bash
 npx prisma studio
 ```
