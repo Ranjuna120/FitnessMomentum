@@ -7,11 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+  "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
   "prisma:migrate": "prisma migrate dev",
   "seed": "node prisma/seed.js",
   "db:up": "docker compose up -d",
-    "db:down": "docker compose down"
+  "db:down": "docker compose down"
   },
   "prisma": {
     "seed": "node prisma/seed.js"
