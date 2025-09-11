@@ -149,10 +149,20 @@ export default function TrainingPage() {
         <p className="mt-2 text-sm text-indigo-100/80 max-w-2xl">
           Choose a membership or work 1:1 with a coach. Scroll to see Personal Training options.
         </p>
+        {/* Quick actions / jump links */}
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <a href="#membership" className="text-[11px] rounded-full px-3 py-1 bg-white/10 hover:bg-white/20 transition backdrop-blur text-indigo-50">Membership</a>
+          <a href="#personal-training" className="text-[11px] rounded-full px-3 py-1 bg-white/10 hover:bg-white/20 transition backdrop-blur text-indigo-50">Personal Training</a>
+          <a href="#special" className="text-[11px] rounded-full px-3 py-1 bg-white/10 hover:bg-white/20 transition backdrop-blur text-indigo-50">Special</a>
+          <a href="#faqs" className="text-[11px] rounded-full px-3 py-1 bg-white/10 hover:bg-white/20 transition backdrop-blur text-indigo-50">FAQs</a>
+          <div className="mx-2 h-6 w-px bg-white/15" />
+          <a href="/dashboard/workouts/new" className="text-[11px] rounded-full px-3 py-1 bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-emerald-500 hover:brightness-110 text-white shadow">Start a workout</a>
+          <a href="/dashboard/workouts" className="text-[11px] rounded-full px-3 py-1 bg-white/10 hover:bg-white/20 transition backdrop-blur text-indigo-50">View workouts</a>
+        </div>
       </div>
 
       {/* Membership section */}
-      <section aria-labelledby="membership-heading" className="space-y-4">
+      <section aria-labelledby="membership-heading" className="space-y-4" id="membership">
         <h2 id="membership-heading" className="text-lg font-semibold text-indigo-50 drop-shadow">Membership</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {membershipPlans.map((p) => (
@@ -187,7 +197,7 @@ export default function TrainingPage() {
       <div className="h-12" />
 
       {/* Personal Training section */}
-      <section aria-labelledby="pt-heading" className="space-y-4">
+      <section aria-labelledby="pt-heading" className="space-y-4" id="personal-training">
         <h2 id="pt-heading" className="text-lg font-semibold text-indigo-50 drop-shadow">Personal Training</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {personalTraining.map((p) => (
@@ -222,7 +232,7 @@ export default function TrainingPage() {
       <div className="h-12" />
 
       {/* Special Memberships */}
-      <section aria-labelledby="special-heading" className="space-y-4">
+      <section aria-labelledby="special-heading" className="space-y-4" id="special">
         <h2 id="special-heading" className="text-lg font-semibold text-indigo-50 drop-shadow">Special Memberships</h2>
         <div className="grid sm:grid-cols-2 gap-5">
           {specialMemberships.map((p) => (
@@ -270,6 +280,42 @@ export default function TrainingPage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* FAQs */}
+      <div className="h-12" />
+      <section aria-labelledby="faqs-heading" id="faqs" className="space-y-4">
+        <h2 id="faqs-heading" className="text-lg font-semibold text-indigo-50 drop-shadow">FAQs</h2>
+        <div className="grid gap-3">
+          <details className="group rounded-xl border border-white/10 bg-white/5 backdrop-blur px-4 py-3">
+            <summary className="list-none cursor-pointer select-none flex items-center justify-between gap-3">
+              <span className="text-sm font-medium text-indigo-50">Do I need a basic membership to purchase Personal Training?</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-indigo-100">Policy</span>
+            </summary>
+            <p className="mt-3 text-sm text-indigo-100/85">Yes. Personal Training requires an active existing/new basic membership with the same validity.</p>
+          </details>
+          <details className="group rounded-xl border border-white/10 bg-white/5 backdrop-blur px-4 py-3">
+            <summary className="list-none cursor-pointer select-none flex items-center justify-between gap-3">
+              <span className="text-sm font-medium text-indigo-50">Can I pause or transfer my membership?</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-indigo-100">Flexibility</span>
+            </summary>
+            <p className="mt-3 text-sm text-indigo-100/85">Pauses and transfers may be available on select plans. Please check at the front desk for current terms.</p>
+          </details>
+          <details className="group rounded-xl border border-white/10 bg-white/5 backdrop-blur px-4 py-3">
+            <summary className="list-none cursor-pointer select-none flex items-center justify-between gap-3">
+              <span className="text-sm font-medium text-indigo-50">Do you offer EMI or installment options?</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-indigo-100">Payments</span>
+            </summary>
+            <p className="mt-3 text-sm text-indigo-100/85">No-cost and standard EMI options may be available for eligible plans. Availability can vary.</p>
+          </details>
+          <details className="group rounded-xl border border-white/10 bg-white/5 backdrop-blur px-4 py-3">
+            <summary className="list-none cursor-pointer select-none flex items-center justify-between gap-3">
+              <span className="text-sm font-medium text-indigo-50">What’s included in the Body Scan Analysis?</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-indigo-100">Assessment</span>
+            </summary>
+            <p className="mt-3 text-sm text-indigo-100/85">A guided measurement of key metrics like body weight, estimated body fat, and circumferences to help track progress.</p>
+          </details>
         </div>
       </section>
     </div>
