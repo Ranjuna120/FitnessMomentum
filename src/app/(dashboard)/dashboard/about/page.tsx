@@ -88,8 +88,8 @@ export default function AboutPage() {
               { name: 'Sasha', role: 'Ladies Coach', img: '/images/LadiesCoach.jpg', email: '#', facebook: '#', instagram: '#' }
             ].map((c) => (
               <div key={c.name} className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-md p-4 text-indigo-50">
-                <div className="relative h-44 w-full rounded-lg overflow-hidden border border-white/10 bg-slate-900/40">
-                  <Image src={c.img} alt={`${c.name} - ${c.role}`} fill sizes="(max-width: 768px) 100vw, (max-width:1200px) 50vw, 25vw" className="object-cover" />
+                <div className="relative w-full aspect-[4/5] rounded-lg overflow-hidden border border-white/10 bg-slate-900/40">
+                  <Image src={c.img} alt={`${c.name} - ${c.role}`} fill sizes="(max-width: 768px) 100vw, (max-width:1200px) 50vw, 25vw" className="object-cover object-top" />
                 </div>
                 <div className="mt-3 flex items-start justify-between gap-3">
                   <div>
