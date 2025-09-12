@@ -6,6 +6,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  // Use an environment variable. Do NOT inline the full connection string inside env().
+  // Set DATABASE_URL in your .env (local) and in Vercel Project Settings (Production/Preview).
   url      = env("DATABASE_URL")
 }
 
