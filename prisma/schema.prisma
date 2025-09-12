@@ -5,9 +5,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  // Use an environment variable. Do NOT inline the full connection string inside env().
-  // Set DATABASE_URL in your .env (local) and in Vercel Project Settings (Production/Preview).
+  provider = "sqlite"
+  // Local development uses a file-based SQLite DB.
+  // Set DATABASE_URL="file:./dev.db" in .env or .env.local
   url      = env("DATABASE_URL")
 }
 
